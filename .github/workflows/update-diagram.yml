@@ -17,16 +17,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install draw.io CLI
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y xvfb
-          npm install -g drawio
+      - name: Check docker
+        run: docker --version
 
       - name: Export drawio to SVG
         run: |
