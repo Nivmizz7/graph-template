@@ -1,0 +1,8 @@
+{
+  "name": "kolotun",
+  "private": true,
+  "scripts": {
+    "start": "node server/index.js",
+    "export": "sh scripts/export.sh"
+  }
+}
