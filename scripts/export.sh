@@ -11,14 +11,6 @@ fi
 
 mkdir -p "$(dirname "$OUTPUT_PATH")"
 
-run_drawio() {
-  if command -v xvfb-run >/dev/null 2>&1; then
-    xvfb-run -a drawio --export --format svg --output "$OUTPUT_PATH" "$INPUT_PATH"
-  else
-    drawio --export --format svg --output "$OUTPUT_PATH" "$INPUT_PATH"
-  fi
-}
-
 run_drawio_npx() {
   if command -v xvfb-run >/dev/null 2>&1; then
     xvfb-run -a npx --yes @drawio/cli --export --format svg --output "$OUTPUT_PATH" "$INPUT_PATH"
@@ -41,10 +33,8 @@ if [[ -n "$DRAWIO_BIN" ]]; then
 else
   if command -v npx >/dev/null 2>&1; then
     run_drawio_npx
-  elif command -v drawio >/dev/null 2>&1; then
-    run_drawio
   else
-    echo "drawio CLI not found. Install @drawio/cli or provide DRAWIO_BIN." >&2
+    echo "npx not found. Install Node.js or provide DRAWIO_BIN." >&2
   fi
 fi
 
