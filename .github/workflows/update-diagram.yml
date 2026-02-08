@@ -32,7 +32,12 @@ jobs:
             echo "src/update.drawio not found, nothing to do."
             exit 0
           fi
+          rm -f public/latest.svg
           bash scripts/export.sh src/update.drawio public/latest.svg
+          if [[ ! -f "public/latest.svg" ]]; then
+            echo "Export failed: public/latest.svg not created."
+            exit 1
+          fi
 
       - name: Replace latest.drawio
         run: |
@@ -48,6 +53,6 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A public/latest.svg src/latest.drawio src/update.drawio
+          git add -A public/latest.svg src/latest.drawio
           git commit -m "chore: update diagram"
           git push
