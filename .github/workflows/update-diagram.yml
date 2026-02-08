@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - src/update.drawio
+      - src/latest.drawio
   workflow_dispatch:
 
 permissions:
@@ -23,17 +24,22 @@ jobs:
 
       - name: Install draw.io CLI
         run: |
+          sudo apt-get update
           sudo apt-get install -y xvfb
           npm install -g drawio
 
-      - name: Export update.drawio to SVG
+      - name: Export drawio to SVG
         run: |
-          if [[ ! -f "src/update.drawio" ]]; then
-            echo "src/update.drawio not found, nothing to do."
+          INPUT_FILE="src/latest.drawio"
+          if [[ -f "src/update.drawio" ]]; then
+            INPUT_FILE="src/update.drawio"
+          fi
+          if [[ ! -f "$INPUT_FILE" ]]; then
+            echo "No drawio source found (src/update.drawio or src/latest.drawio)."
             exit 0
           fi
           rm -f public/latest.svg
-          bash scripts/export.sh src/update.drawio public/latest.svg
+          bash scripts/export.sh "$INPUT_FILE" public/latest.svg
           if [[ ! -f "public/latest.svg" ]]; then
             echo "Export failed: public/latest.svg not created."
             exit 1
