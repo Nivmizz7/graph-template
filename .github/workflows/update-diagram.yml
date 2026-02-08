@@ -25,7 +25,7 @@ jobs:
       - name: Install draw.io CLI dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb libgtk-3-0 libgbm1 libnss3 libxss1 libasound2 libfuse2
+          sudo apt-get install -y xvfb libgtk-3-0 libgbm1 libnss3 libxss1 libasound2t64 libfuse2
 
       - name: Download draw.io desktop
         run: |
