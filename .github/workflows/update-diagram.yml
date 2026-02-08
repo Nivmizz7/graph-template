@@ -17,8 +17,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Check docker
-        run: docker --version
+      - name: Install draw.io CLI dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libgtk-3-0 libgbm1 libnss3 libxss1 libasound2
+
+      - name: Install draw.io CLI
+        run: npm install -g @drawio/cli
 
       - name: Export drawio to SVG
         run: |
@@ -31,7 +36,7 @@ jobs:
             exit 0
           fi
           rm -f public/latest.svg
-          USE_DOCKER_DRAWIO=1 bash scripts/export.sh "$INPUT_FILE" public/latest.svg
+            bash scripts/export.sh "$INPUT_FILE" public/latest.svg
           if [[ ! -f "public/latest.svg" ]]; then
             echo "Export failed: public/latest.svg not created."
             exit 1

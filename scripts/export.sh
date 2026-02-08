@@ -19,39 +19,22 @@ run_drawio() {
   fi
 }
 
-run_docker() {
-  local root input_abs output_abs input_in_container output_in_container
-  root=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
-  input_abs=$(realpath "$INPUT_PATH")
-  output_abs=$(realpath -m "$OUTPUT_PATH")
-
-  if [[ "$input_abs" != "$root"/* || "$output_abs" != "$root"/* ]]; then
-    echo "Input/output must be inside repo: $root" >&2
-    return 1
+DRAWIO_BIN=${DRAWIO_BIN:-}
+if [[ -n "$DRAWIO_BIN" ]]; then
+  if [[ ! -x "$DRAWIO_BIN" ]]; then
+    echo "DRAWIO_BIN is not executable: $DRAWIO_BIN" >&2
+    exit 1
   fi
-
-  input_in_container="/data/${input_abs#$root/}"
-  output_in_container="/data/${output_abs#$root/}"
-
-  docker run --rm -v "$root":/data jgraph/drawio \
-    --export --format svg --output "$output_in_container" "$input_in_container"
-}
-
-if [[ "${USE_DOCKER_DRAWIO:-}" != "1" ]]; then
-  if command -v drawio >/dev/null 2>&1; then
-    if ! run_drawio; then
-      echo "drawio export failed, trying docker fallback..." >&2
-    fi
-  fi
-fi
-
-if [[ ! -f "$OUTPUT_PATH" ]]; then
-  if command -v docker >/dev/null 2>&1; then
-    if ! run_docker; then
-      echo "Docker export failed." >&2
-    fi
+  if command -v xvfb-run >/dev/null 2>&1; then
+    xvfb-run -a "$DRAWIO_BIN" --export --format svg --output "$OUTPUT_PATH" "$INPUT_PATH"
   else
-    echo "drawio CLI not available and docker not found." >&2
+    "$DRAWIO_BIN" --export --format svg --output "$OUTPUT_PATH" "$INPUT_PATH"
+  fi
+else
+  if command -v drawio >/dev/null 2>&1; then
+    run_drawio
+  else
+    echo "drawio CLI not found. Install @drawio/cli or provide DRAWIO_BIN." >&2
   fi
 fi
 
