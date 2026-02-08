@@ -20,15 +20,16 @@ run_drawio_npx() {
 }
 
 DRAWIO_BIN=${DRAWIO_BIN:-}
+DRAWIO_ARGS=${DRAWIO_ARGS:-}
 if [[ -n "$DRAWIO_BIN" ]]; then
   if [[ ! -x "$DRAWIO_BIN" ]]; then
     echo "DRAWIO_BIN is not executable: $DRAWIO_BIN" >&2
     exit 1
   fi
   if command -v xvfb-run >/dev/null 2>&1; then
-    xvfb-run -a "$DRAWIO_BIN" --export --format svg --output "$OUTPUT_PATH" "$INPUT_PATH"
+    xvfb-run -a "$DRAWIO_BIN" $DRAWIO_ARGS --export --format svg --output "$OUTPUT_PATH" "$INPUT_PATH"
   else
-    "$DRAWIO_BIN" --export --format svg --output "$OUTPUT_PATH" "$INPUT_PATH"
+    "$DRAWIO_BIN" $DRAWIO_ARGS --export --format svg --output "$OUTPUT_PATH" "$INPUT_PATH"
   fi
 else
   if command -v npx >/dev/null 2>&1; then
