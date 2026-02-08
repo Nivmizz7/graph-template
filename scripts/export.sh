@@ -19,6 +19,14 @@ run_drawio() {
   fi
 }
 
+run_drawio_npx() {
+  if command -v xvfb-run >/dev/null 2>&1; then
+    xvfb-run -a npx --yes @drawio/cli --export --format svg --output "$OUTPUT_PATH" "$INPUT_PATH"
+  else
+    npx --yes @drawio/cli --export --format svg --output "$OUTPUT_PATH" "$INPUT_PATH"
+  fi
+}
+
 DRAWIO_BIN=${DRAWIO_BIN:-}
 if [[ -n "$DRAWIO_BIN" ]]; then
   if [[ ! -x "$DRAWIO_BIN" ]]; then
@@ -31,7 +39,9 @@ if [[ -n "$DRAWIO_BIN" ]]; then
     "$DRAWIO_BIN" --export --format svg --output "$OUTPUT_PATH" "$INPUT_PATH"
   fi
 else
-  if command -v drawio >/dev/null 2>&1; then
+  if command -v npx >/dev/null 2>&1; then
+    run_drawio_npx
+  elif command -v drawio >/dev/null 2>&1; then
     run_drawio
   else
     echo "drawio CLI not found. Install @drawio/cli or provide DRAWIO_BIN." >&2
