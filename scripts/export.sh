@@ -37,9 +37,11 @@ run_docker() {
     --export --format svg --output "$output_in_container" "$input_in_container"
 }
 
-if command -v drawio >/dev/null 2>&1; then
-  if ! run_drawio; then
-    echo "drawio export failed, trying docker fallback..." >&2
+if [[ "${USE_DOCKER_DRAWIO:-}" != "1" ]]; then
+  if command -v drawio >/dev/null 2>&1; then
+    if ! run_drawio; then
+      echo "drawio export failed, trying docker fallback..." >&2
+    fi
   fi
 fi
 

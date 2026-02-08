@@ -31,7 +31,7 @@ jobs:
             exit 0
           fi
           rm -f public/latest.svg
-          bash scripts/export.sh "$INPUT_FILE" public/latest.svg
+          USE_DOCKER_DRAWIO=1 bash scripts/export.sh "$INPUT_FILE" public/latest.svg
           if [[ ! -f "public/latest.svg" ]]; then
             echo "Export failed: public/latest.svg not created."
             exit 1
