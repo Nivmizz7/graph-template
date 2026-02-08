@@ -11,24 +11,24 @@ Displays a single full-screen SVG diagram and refreshes it automatically. A mini
 ## Structure
 
 ```
+.github/workflows/
+  update-license-year.yml # script for update the year in the license
 public/
-  index.html   # full-screen page with auto refresh
-  latest.svg   # diagram displayed
+  index.html              # full-screen page with auto refresh
+  latest.svg              # diagram displayed
 server/
-  index.js     # minimal HTTP server
+  index.js                # minimal HTTP server
 scripts/
-  deploy.sh    # optional deploy script
+  deploy.sh               # optional deploy script
 ```
 
 ## Quests
 
-- Missing in Action
-- Clearing the way
-- Kolotun
-- Come by the Fire
-- Knuckle Sandwich
-- Stay Frosty
-- Skiing with Skier
-- Cold Start
-- Self-Employed
-- A Small Celebration
+- List quest
+
+## License
+
+This project is released under the Nivmizz7 personal license based on GPLv3 — Copyright (c) 2026 Niv Nivmizz7.
+Any reuse is allowed, provided the author is credited and the license text is kept.
+
+See [LICENSE](LICENSE).
