@@ -25,10 +25,12 @@ jobs:
       - name: Install draw.io CLI dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb libgtk-3-0 libgbm1 libnss3 libxss1 libasound2
+          sudo apt-get install -y xvfb libgtk-3-0 libgbm1 libnss3 libxss1 libasound2 libfuse2
 
-      - name: Install draw.io CLI
-        run: npm install -g @drawio/cli
+      - name: Download draw.io desktop
+        run: |
+          curl -L -o /tmp/drawio.AppImage https://github.com/jgraph/drawio-desktop/releases/download/v24.7.8/drawio-x86_64-24.7.8.AppImage
+          chmod +x /tmp/drawio.AppImage
 
       - name: Export drawio to SVG
         run: |
@@ -41,7 +43,7 @@ jobs:
             exit 0
           fi
           rm -f public/latest.svg
-          bash scripts/export.sh "$INPUT_FILE" public/latest.svg
+          DRAWIO_BIN=/tmp/drawio.AppImage bash scripts/export.sh "$INPUT_FILE" public/latest.svg
           if [[ ! -f "public/latest.svg" ]]; then
             echo "Export failed: public/latest.svg not created."
             exit 1
