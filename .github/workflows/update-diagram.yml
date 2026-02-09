@@ -52,7 +52,7 @@ jobs:
       - name: Replace latest.drawio
         run: |
           if [[ -f "src/update.drawio" ]]; then
-            mv src/update.drawio src/latest.drawio
+            mv -f src/update.drawio src/latest.drawio
           fi
 
       - name: Commit and push if changed
