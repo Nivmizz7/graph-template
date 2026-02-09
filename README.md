@@ -1,6 +1,6 @@
 # graph-template
 
-Displays a single full-screen SVG diagram and refreshes it automatically. A minimal Node.js server serves `public/index.html` and `public/latest.svg` so the latest version of the diagram is always visible.
+Displays a single full-screen [draw.io](https://draw.io) SVG diagram and refreshes it automatically. A minimal Node.js server serves `public/index.html` and `public/latest.svg` so the latest version of the diagram is always visible.
 
 ## How it is built (rough)
 
@@ -23,7 +23,6 @@ scripts/
 src/
   latest.drawio           # latest draw.io source file
 ```
-
 ## License
 
 See [LICENSE](LICENSE).
