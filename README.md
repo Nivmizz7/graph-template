@@ -23,6 +23,16 @@ scripts/
 src/
   latest.drawio           # latest draw.io source file
 ```
+
+## Updating the diagram
+
+Upload or commit a new `src/update.drawio`. The workflow will automatically:
+
+- Convert it to `public/latest.svg`
+- Replace `src/latest.drawio` with the new file
+- Remove `src/update.drawio`
+
+After the workflow completes, only `src/latest.drawio` remains in the repo.
 ## License
 
 See [LICENSE](LICENSE).
