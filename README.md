@@ -1,4 +1,4 @@
-# Kolotun
+# graph-template
 
 Displays a single full-screen SVG diagram and refreshes it automatically. A minimal Node.js server serves `public/index.html` and `public/latest.svg` so the latest version of the diagram is always visible.
 
@@ -20,15 +20,10 @@ server/
   index.js                # minimal HTTP server
 scripts/
   deploy.sh               # optional deploy script
+src/
+  latest.drawio           # latest draw.io source file
 ```
 
-## Quests
-
-- List quest
-
 ## License
-
-This project is released under the Nivmizz7 personal license based on GPLv3 — Copyright (c) 2026 Niv Nivmizz7.
-Any reuse is allowed, provided the author is credited and the license text is kept.
 
 See [LICENSE](LICENSE).
